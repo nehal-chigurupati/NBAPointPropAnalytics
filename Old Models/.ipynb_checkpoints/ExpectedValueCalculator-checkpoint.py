@@ -2,21 +2,25 @@ from scipy.optimize import minimize, Bounds, LinearConstraint, SR1
 import numpy as np
 
 probs = [
-    0.7913043499,
-    0.7540983558,
-    0.9230769277,
-    0.6969696879,
-    0.7843137383,
-    0.59375
+    0.868131876,
+    0.655844152,
+    0.6065573692,
+    0.6623376608,
+    0.6756756902,
+    0.6395938993,
+    0.7714285851,
+    0.7231404781
 ]
 
 gains = [
-    .0833,
+    .087,
     .0952,
-    .0962,
-    .0847,
-    .098,
-    .0877
+    .1,
+    .0769,
+    .0877,
+    .087,
+    .0952,
+    .1
 ]
 
 def coeffs(probabilities, gains):
@@ -56,6 +60,6 @@ def generateSumConstraint(dim):
 x0 = np.array([0 for i in range(len(probs))])
 constraint1 = generateSumConstraint(len(probs))
 bnd = [(0, None) for i in range(len(x0))]
-res = minimize(objectiveFunction, x0, method='trust-constr', jac="6-point", hess=SR1(), bounds=bnd, constraints=[constraint1])
+res = minimize(objectiveFunction, x0, method='trust-constr', jac="8-point", hess=SR1(), bounds=bnd, constraints=[constraint1])
 print(100 - res["fun"])
 print(res["x"])
